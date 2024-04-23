@@ -4,8 +4,8 @@
 Area::Area(QWidget *parent):QWidget(parent)
 {
     setFixedSize(QSize(500,300));
-    mytrngl=new MyTrngl(0,0,50);
-    myrect=new MyRect(0,0,100);
+    mytrngl=new MyTrngl(100,150,150,50,50,100);
+    myrect=new MyRect(50,150,150,150,150,50,50,50);
     alpha=0;
 }
 
@@ -19,7 +19,7 @@ void Area::paintEvent(QPaintEvent*)
     QPainter painter(this);
     painter.setPen(Qt::red);
     mytrngl->draw(alpha, h, &painter);
-    myrect->draw(alpha*(-0.5), h, &painter);
+    myrect->draw(h, &painter);
 }
 
 void Area::timerEvent(QTimerEvent *event)
