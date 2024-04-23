@@ -26,8 +26,6 @@ void Area::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == myTimer)    // если наш таймер
     {
-        alpha=alpha+0.2;
-        //h*=h;
         update();   // обновить внешний вид
     }
     else

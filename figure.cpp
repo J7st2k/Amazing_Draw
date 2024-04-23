@@ -10,9 +10,7 @@
 
 void MyTrngl::draw(float Alpha, float h, QPainter *Painter)
 {
-    dx=halflen*cos(Alpha);
-    dy=halflen*sin(Alpha);
-    Painter->drawLine(x0,y0,x1,y1);
+
 }
 
 void MyRect::draw(float Alpha, float h, QPainter *Painter)
