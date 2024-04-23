@@ -5,27 +5,25 @@
 class Figure
 {
 protected:
-    int x,y,halflen,dx,dy,r;
-    virtual void draw(QPainter *Painter)=0; //объявляем для вызова в move
+    int x0, y0, x1, y1;
+    float h;
+    virtual void draw(float Alpha, float h, QPainter *Painter)=0;
 public:
-    Figure(int X,int Y,int Halflen):x(X),y(Y),halflen(Halflen){}
-    void move(float Alpha,QPainter *Painter);
+    Figure(int X0,int Y0,int X1,int Y1):x0(X0),y0(Y0),x1(X1),y1(Y1){}
 };
 
-class MyLine:public Figure
+class MyTrngl:public Figure
 {
-protected:
-    void draw(QPainter *Painter);
 public:
-    MyLine(int x,int y,int halflen):Figure(x,y,halflen){}
+    MyTrngl(int X0,int Y0,int X1,int Y1):Figure(x0,y0,x1,y1){}
+    void draw(float Alpha, float h, QPainter *Painter);
 };
 
 class MyRect:public Figure
 {
-protected:
-    void draw(QPainter *Painter);
 public:
-    MyRect(int x,int y,int halflen):Figure(x,y,halflen){}
+    MyRect(int X0,int Y0,int X1,int Y1):Figure(x0,y0,x1,y1){}
+    void draw(float Alpha, float h, QPainter *Painter);
 };
 
 #endif // FIGURE_H

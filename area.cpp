@@ -3,9 +3,9 @@
 
 Area::Area(QWidget *parent):QWidget(parent)
 {
-    setFixedSize(QSize(300,200));
-    myline=new MyLine(80,100,50);
-    myrect=new MyRect(220,100,50);
+    setFixedSize(QSize(500,300));
+    mytrngl=new MyTrngl(0,0,50);
+    myrect=new MyRect(0,0,100);
     alpha=0;
 }
 
@@ -18,8 +18,8 @@ void Area::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
     painter.setPen(Qt::red);
-    myline->move(alpha,&painter);
-    myrect->move(alpha*(-0.5),&painter);
+    mytrngl->draw(alpha, h, &painter);
+    myrect->draw(alpha*(-0.5), h, &painter);
 }
 
 void Area::timerEvent(QTimerEvent *event)
@@ -27,6 +27,7 @@ void Area::timerEvent(QTimerEvent *event)
     if (event->timerId() == myTimer)    // если наш таймер
     {
         alpha=alpha+0.2;
+        //h*=h;
         update();   // обновить внешний вид
     }
     else
@@ -40,6 +41,6 @@ void Area::hideEvent(QHideEvent *)
 
 Area::~Area()
 {
-    delete myline;
+    delete mytrngl;
     delete myrect;
 }

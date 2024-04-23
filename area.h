@@ -11,10 +11,11 @@ class Area:public QWidget
 {
     int myTimer;    // идентификатор таймера
     float alpha;    // угол поворота
+    float h;        // коэфициент роста / уменьшения
 public:
     Area(QWidget *parent = 0);
     ~Area();
-    MyLine *myline;
+    MyTrngl *mytrngl;
     MyRect *myrect;
 protected:
            //обработчики событий
