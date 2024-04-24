@@ -18,19 +18,11 @@ MyTrngl::MyTrngl(float X0, float Y0, float X1, float Y1, float X2, float Y2)
     y[2]=(Y2);
 }
 
-void MyTrngl::draw(float Alpha, float h, QPainter *Painter)
+void MyTrngl::draw(QPainter *Painter)
 {
-    for(int i=0; i < 3; i++) {
-        x[i]-=100;
-        y[i]-=100;
-    }
     Painter->drawLine(x[0],y[0],x[1],y[1]);
     Painter->drawLine(x[1],y[1],x[2],y[2]);
     Painter->drawLine(x[2],y[2],x[0],y[0]);
-    for(int i=0; i < 3; i++) {
-        x[i]+=100;
-        y[i]+=100;
-    }
 }
 
 void MyTrngl::rotate(float Alpha)
@@ -76,7 +68,7 @@ MyRect::MyRect(float X0, float Y0, float X1, float Y1, float X2, float Y2, float
     y[3]=(Y3);
 }
 
-void MyRect::draw(float h, QPainter *Painter)
+void MyRect::draw(QPainter *Painter)
 {
     Painter->drawLine(x[0],y[0],x[1],y[1]);
     Painter->drawLine(x[1],y[1],x[2],y[2]);

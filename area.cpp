@@ -4,40 +4,48 @@
 
 Area::Area(QWidget *parent):QWidget(parent)
 {
-    setFixedSize(QSize(500,300));
+    setFixedSize(QSize(200,200));
     mytrngl=new MyTrngl(100,150,150,50,50,100);
     myrect=new MyRect(50,150,150,150,150,50,50,50);
     alpha=0;
+    h=1;
 }
 
 void Area::showEvent(QShowEvent*)
 {
-    myTimer=startTimer(50); // создать таймер
+    myTimer=startTimer(1.2); // создать таймер
 }
 
 void Area::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
-    QTransform trans;
     painter.setPen(Qt::red);
-    painter.save();
+    QTransform trans1, trans2;
 
-    trans.rotate(alpha);
-    //trans.translate(-100,-100);
-    painter.setTransform(trans);
-    //painter.rotate(alpha);
-    mytrngl->draw(alpha, h, &painter);
+    painter.save();
+    trans1.translate(100, 100);
+    trans1.rotate(alpha);
+    trans1.scale(h,h);
+    trans1.translate(-100, -100);
+    painter.setTransform(trans1);
+    mytrngl->draw(&painter);
     painter.restore();
-    myrect->draw(h, &painter);
-    // trans.translate(-100,-100);
-    // painter.setTransform(trans);
+
+    painter.save();
+    trans2.translate(100, 100);
+    trans2.scale(2-h,2-h);
+    trans2.translate(-100, -100);
+    painter.setTransform(trans2);
+    myrect->draw(&painter);
+    painter.restore();
 }
 
 void Area::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == myTimer)    // если наш таймер
     {
-        alpha+=0.3;
+        alpha+=0.2;
+        h*=0.9999;
         //mytrngl->rotate(alpha);
         update();   // обновить внешний вид
     }
