@@ -1,5 +1,6 @@
 #include "area.h"
 #include <QPainter>
+#include <QTransform>
 
 Area::Area(QWidget *parent):QWidget(parent)
 {
@@ -17,9 +18,19 @@ void Area::showEvent(QShowEvent*)
 void Area::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
+    QTransform trans;
     painter.setPen(Qt::red);
+    painter.save();
+
+    trans.rotate(alpha);
+    //trans.translate(-100,-100);
+    painter.setTransform(trans);
+    //painter.rotate(alpha);
     mytrngl->draw(alpha, h, &painter);
+    painter.restore();
     myrect->draw(h, &painter);
+    // trans.translate(-100,-100);
+    // painter.setTransform(trans);
 }
 
 void Area::timerEvent(QTimerEvent *event)
@@ -27,7 +38,7 @@ void Area::timerEvent(QTimerEvent *event)
     if (event->timerId() == myTimer)    // если наш таймер
     {
         alpha+=0.3;
-        mytrngl->rotate(alpha);
+        //mytrngl->rotate(alpha);
         update();   // обновить внешний вид
     }
     else

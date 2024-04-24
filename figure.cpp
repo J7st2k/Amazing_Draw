@@ -20,23 +20,31 @@ MyTrngl::MyTrngl(float X0, float Y0, float X1, float Y1, float X2, float Y2)
 
 void MyTrngl::draw(float Alpha, float h, QPainter *Painter)
 {
+    for(int i=0; i < 3; i++) {
+        x[i]-=100;
+        y[i]-=100;
+    }
     Painter->drawLine(x[0],y[0],x[1],y[1]);
     Painter->drawLine(x[1],y[1],x[2],y[2]);
     Painter->drawLine(x[2],y[2],x[0],y[0]);
+    for(int i=0; i < 3; i++) {
+        x[i]+=100;
+        y[i]+=100;
+    }
 }
 
 void MyTrngl::rotate(float Alpha)
 {
 
-    for(int i=0; i < 3; i++) {
-        y[i]*=(-1.);
-        x[i]+=200;
-        y[i]+=200;
-    }
+    // for(int i=0; i < 3; i++) {
+    //     y[i]*=(-1.);
+    //     // x[i]+=200;
+    //     // y[i]+=200;
+    // }
 
     for(int i=0; i < 3; i++) {
-        x[i]-=100;
-        y[i]-=100;
+        x[i]+=100;
+        y[i]+=100;
     }
 
     for(int i=0; i < 3; i++) {
@@ -49,11 +57,11 @@ void MyTrngl::rotate(float Alpha)
         y[i]+=100;
     }
 
-    for(int i=0; i < 3; i++) {
-        x[i]-=200;
-        y[i]-=200;
-        y[i]*=(-1.);
-    }
+    // for(int i=0; i < 3; i++) {
+    //     // x[i]-=200;
+    //     // y[i]-=200;
+    //     y[i]*=(-1.);
+    // }
 }
 
 MyRect::MyRect(float X0, float Y0, float X1, float Y1, float X2, float Y2, float X3, float Y3)
