@@ -55,12 +55,13 @@ public:
     void draw(QPainter* p) {
         toCKH();
         toCKK();
-        toCKE(5, 320, 175, 200, 200);
+        toCKE(4, 320, 175, 200, 200);
         p->drawLine(VerEk[0][0], VerEk[0][1], VerEk[1][0], VerEk[1][1]);
         p->drawLine(VerEk[0][0], VerEk[0][1], VerEk[2][0], VerEk[2][1]);
         p->drawLine(VerEk[0][0], VerEk[0][1], VerEk[3][0], VerEk[3][1]);
-        p->drawLine(VerEk[4][0], VerEk[4][1], VerEk[5][0], VerEk[5][1]);
-        p->drawLine(VerEk[6][0], VerEk[6][1], VerEk[7][0], VerEk[7][1]);
+        p->drawLine(VerEk[1][0], VerEk[1][1], VerEk[2][0], VerEk[2][1]);
+        p->drawLine(VerEk[1][0], VerEk[1][1], VerEk[3][0], VerEk[3][1]);
+        p->drawLine(VerEk[2][0], VerEk[2][1], VerEk[3][0], VerEk[3][1]);
     }
 };
 
