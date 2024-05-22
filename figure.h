@@ -2,30 +2,66 @@
 #define FIGURE_H
 #include <QPainter>
 
-class Figure
+class figure
 {
-protected:
-    int x,y,halflen,dx,dy,r;
-    virtual void draw(QPainter *Painter)=0; //объявляем для вызова в move
+    int x0, y0, z0, n;
+    float ** Ver;
+    float ** VerNa;
+    float ** VerKa;
+    float ** VerEk;
 public:
-    Figure(int X,int Y,int Halflen):x(X),y(Y),halflen(Halflen){}
-    void move(float Alpha,QPainter *Painter);
-};
+    figure(int X0, int Y0, int Z0, float** ver, int N):x0(X0), y0(Y0), z0(Z0), Ver(ver), n(N){
+        VerNa = new float*[N];
+        VerKa = new float*[N];
+        VerEk = new float*[N];
+        for (int i = 0; i < N; i++) {
+            VerNa[i] = new float[3]{ 0 };
+            VerKa[i] = new float[2]{ 0 };
+            VerEk[i] = new float[2]{ 0 };
+        }
+    }
+    ~figure() {
+        for (int i = 0; i < n; i++) {
+            delete VerNa[i];
+            delete VerKa[i];
+            delete VerEk[i];
+        }
+    }
 
-class MyLine:public Figure
-{
-protected:
-    void draw(QPainter *Painter);
-public:
-    MyLine(int x,int y,int halflen):Figure(x,y,halflen){}
-};
+    float * TS(float *coord); //матрицы
+    float * R90x(float *coord);
+    float * Ruy(float *coord);
+    float * Rwx(float *coord);
+    float * comp(float *coord);
 
-class MyRect:public Figure
-{
-protected:
-    void draw(QPainter *Painter);
-public:
-    MyRect(int x,int y,int halflen):Figure(x,y,halflen){}
+    void toCKH() {
+        for (int i = 0; i < n; i++) // to CKH
+            VerNa[i] = comp(Ver[i]);
+    }
+
+    void toCKK() {
+        for (int i = 0; i < n; i++) // to CKK
+            for (int j = 0; j < 2; j++)
+                VerKa[i][j] = VerNa[i][j];
+    }
+
+    void toCKE(int P, int xc, int yc, int xe, int ye) {
+        for (int i = 0; i < n; i++) {
+            VerEk[i][0] = (VerKa[i][0] / P)*xe + xc;
+            VerEk[i][1] = (VerKa[i][1] / P)*ye + yc;
+        }
+    }
+
+    void draw(QPainter* p) {
+        toCKH();
+        toCKK();
+        toCKE(5, 320, 175, 200, 200);
+        p->drawLine(VerEk[0][0], VerEk[0][1], VerEk[1][0], VerEk[1][1]);
+        p->drawLine(VerEk[0][0], VerEk[0][1], VerEk[2][0], VerEk[2][1]);
+        p->drawLine(VerEk[0][0], VerEk[0][1], VerEk[3][0], VerEk[3][1]);
+        p->drawLine(VerEk[4][0], VerEk[4][1], VerEk[5][0], VerEk[5][1]);
+        p->drawLine(VerEk[6][0], VerEk[6][1], VerEk[7][0], VerEk[7][1]);
+    }
 };
 
 #endif // FIGURE_H

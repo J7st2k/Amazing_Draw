@@ -10,12 +10,11 @@
 class Area:public QWidget
 {
     int myTimer;    // идентификатор таймера
-    float alpha;    // угол поворота
+    //float alpha;    // угол поворота
 public:
     Area(QWidget *parent = 0);
     ~Area();
-    MyLine *myline;
-    MyRect *myrect;
+    figure *mypyramid;
 protected:
            //обработчики событий
     void paintEvent(QPaintEvent *event);    //рисование фигур
