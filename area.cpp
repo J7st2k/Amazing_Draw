@@ -3,7 +3,7 @@
 
 Area::Area(QWidget *parent):QWidget(parent)
 {
-    x = 6; y = 6; z = 6;
+    x = 6; y = 6; z = 0;
     alpha = 0;
     setFixedSize(QSize(500,500));
     float ** Ver;
@@ -18,14 +18,19 @@ Area::Area(QWidget *parent):QWidget(parent)
 
 void Area::showEvent(QShowEvent*)
 {
-    myTimer=startTimer(10); // создать таймер
+    QPainter painter(this);
+    painter.setPen(Qt::red);
+    mypyramid->draw(&painter);
 }
 
 void Area::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
     painter.setPen(Qt::red);
-    mypyramid->rotate(0.01);
+    if (alpha < 15) {
+        alpha += 0.01;
+        mypyramid->rotate(0.01);
+    }
     mypyramid->draw(&painter);
 
 }
@@ -49,4 +54,9 @@ void Area::hideEvent(QHideEvent *)
 Area::~Area()
 {
     delete mypyramid;
+}
+
+void Area::startTime()
+{
+    myTimer=startTimer(10); // создать таймер
 }

@@ -7,7 +7,8 @@ class Window:public QWidget
 {
 protected:
     Area * area; // область отображения рисунка
-    QPushButton * btn;
+    QPushButton * exitbtn;
+    QPushButton * animbtn;
 public:
     Window();
 };
