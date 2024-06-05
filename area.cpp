@@ -3,6 +3,8 @@
 
 Area::Area(QWidget *parent):QWidget(parent)
 {
+    x = 6; y = 6; z = 6;
+    alpha = 0;
     setFixedSize(QSize(500,500));
     float ** Ver;
     Ver = new float*[4];
@@ -11,26 +13,28 @@ Area::Area(QWidget *parent):QWidget(parent)
     Ver[2] = new float[3]{ 2,0,0 };
     Ver[3] = new float[3]{ 0,0,4 };
 
-    mypyramid = new figure(6, 6, 5, Ver, 4);
+    mypyramid = new figure(x, y, z, Ver, 4);
 }
 
 void Area::showEvent(QShowEvent*)
 {
-    myTimer=startTimer(1.2); // создать таймер
+    myTimer=startTimer(10); // создать таймер
 }
 
 void Area::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
     painter.setPen(Qt::red);
+    mypyramid->rotate(0.01);
     mypyramid->draw(&painter);
+
 }
 
 void Area::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == myTimer)    // если наш таймер
     {
-        //mytrngl->rotate(alpha);
+        //if(alpha < 15) alpha += 0.01;
         update();   // обновить внешний вид
     }
     else

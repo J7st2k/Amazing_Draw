@@ -10,7 +10,8 @@
 class Area:public QWidget
 {
     int myTimer;    // идентификатор таймера
-    //float alpha;    // угол поворота
+    float alpha;    // угол поворота
+    int x, y, z;
 public:
     Area(QWidget *parent = 0);
     ~Area();
